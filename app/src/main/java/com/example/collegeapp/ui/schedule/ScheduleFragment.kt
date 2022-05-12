@@ -26,15 +26,31 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 */
 import android.os.Bundle
+import android.os.Environment
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
+import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 //import com.example.collegeapp.BuildConfig
 //import com.example.collegeapp.ui.schedule.DownloadResult
 import com.example.collegeapp.databinding.FragmentScheduleBinding
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader
+import com.tom_roush.pdfbox.pdmodel.PDDocument
+import com.tom_roush.pdfbox.text.PDFTextStripper
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
+import java.nio.channels.Channels
+
 /*import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import kotlinx.coroutines.CoroutineScope
@@ -59,6 +75,7 @@ class ScheduleFragment : Fragment() {
     private val PERMISSION_REQUEST_CODE = 1
     private val DOWNLOAD_FILE_CODE = 2
     */
+    private val base = "https://drive.google.com/uc?export=download&id="
     private val fileUrl = "https://drive.google.com/file/d/1JViBKaRX2tA9DnFX294_OOkNgvEKOOc2/view"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -70,38 +87,68 @@ class ScheduleFragment : Fragment() {
 
         val textView: TextView = binding.textSchedule
 
-        /*
-        if (hasPermissions(context, PERMISSIONS)) {
+        setDownloadButtonClickListener()
+        /*if (hasPermissions(context, PERMISSIONS)) {
             setDownloadButtonClickListener()
         } else {
             requestPermissions(PERMISSIONS.toTypedArray(), PERMISSION_REQUEST_CODE)
         }*/
 
-        scheduleViewModel.text.observe(viewLifecycleOwner) {
+        /*scheduleViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
+        }*/
         return root
 
     }
-    /*
+    private fun downloadFile(url: URL, outputFileName: String) {
+        url.openStream().use {
+            Channels.newChannel(it).use { rbc ->
+                FileOutputStream(outputFileName).use { fos ->
+                    fos.channel.transferFrom(rbc, 0, Long.MAX_VALUE)
+                }
+            }
+        }
+    }
+
+    private fun buildDirectUrl(url: String): String
+    {
+        val splitted = url.split("/")
+        return base + splitted[5]
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
     private fun setDownloadButtonClickListener() {
-        val folder = context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+        /*val folder = context?.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
         val fileName = "kitten_in_a_cup.png"
+        print("called")
         val file = File(folder, fileName)
         val uri = context?.let {
             FileProvider.getUriForFile(it, "${BuildConfig.APPLICATION_ID}.provider", file)
         }
         val extension = MimeTypeMap.getFileExtensionFromUrl(uri?.path)
-        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)*/
 
         binding.button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+            /*val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
             intent.setDataAndType(uri, mimeType)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             intent.putExtra(Intent.EXTRA_TITLE, fileName)
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
-            startActivityForResult(intent, DOWNLOAD_FILE_CODE)
+            startActivityForResult(intent, DOWNLOAD_FILE_CODE)*/
+            val downloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+            val downloadedPath = downloadPath + "/kek.pdf"
+            val url = URL(buildDirectUrl(fileUrl))
+
+            GlobalScope.launch(Dispatchers.IO)
+            {
+                downloadFile(url, downloadedPath)
+            }
+            val downloaded = File(downloadedPath)
+            val doc = PDDocument.load(downloaded)
+            val stripper = PDFTextStripper()
+            val text = stripper.getText(doc)
+            //etc..
         }
     }
 
@@ -154,7 +201,7 @@ class ScheduleFragment : Fragment() {
         }
     }*/
 
-    private fun hasPermissions(context: Context?, permissions: List<String>): Boolean {
+    /*private fun hasPermissions(context: Context?, permissions: List<String>): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null) {
             return permissions.all { permission ->
                 ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED

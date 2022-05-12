@@ -1,5 +1,6 @@
 package com.example.collegeapp.ui.schedule
 
+import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -54,10 +55,7 @@ data class ScheduleRoom(
 
 
 class ScheduleViewModel : ViewModel() {
-
-    val pdfFile = File("tmpFile").canRead()
-
-
+    val pdfFile = File("shit").canRead()
 
     private val _downloading: MutableLiveData<Boolean> = MutableLiveData()
     val downloading: LiveData<Boolean> = _downloading
@@ -67,14 +65,14 @@ class ScheduleViewModel : ViewModel() {
     }
 
 
-    private val _text = MutableLiveData<String>().apply {
+    /*private val _text = MutableLiveData<String>().apply {
         value = pdfFile.toString()//json.nextString()
 
 
         //.readLines().component1()// .read().toString()//.lines().findFirst().toString()//"Фрагмент с расписанием"
 
-    }
-    val text: LiveData<String> = _text
+    }*/
+   // val text: LiveData<String> = _text
 
 
 }

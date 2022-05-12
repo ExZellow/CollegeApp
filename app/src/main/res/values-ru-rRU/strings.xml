@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Мой колледж</string>
+    <string name="navigation_drawer_open">Открыть меню</string>
+    <string name="navigation_drawer_close">Закрыть меню</string>
+    <string name="nav_header_title">Номер группы</string>
+    <string name="nav_header_subtitle">Специальность</string>
+    <string name="nav_header_desc">Меню</string>
+    <string name="action_settings">Настройки</string>
+    <string name="menu_home">Главная</string>
+    <string name="menu_schedule">Расписание</string>
+    <string name="menu_news">Новости</string>
+    <string name="some_fab">Плавающая кнопка</string>
+</resources>

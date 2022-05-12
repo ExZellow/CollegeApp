@@ -1,3 +1,14 @@
+// Разработать мобильное приложение для получения актуальной информации с сайта колледжа:
+//
+// Расписание занятий в текущем семестре для заданной специальности, для конкретной группы.
+// Приложение должно обеспечивать просмотр расписания занятий с учетом актуальных изменений для заданной группы по дате или дням недели.
+//
+// Обеспечить просмотр ленты новостей.
+
+// TODO: (опционально) Добавить ссылки на вк и тг
+
+
+
 package com.example.collegeapp
 
 import android.os.Bundle
@@ -30,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <string name="zio_114">ЗИО-114</string>
+    <string name="zio_210">ЗИО-210</string>
+    <string name="ib_112">ИБ-112</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+    <string name="zio_114">ЗИО-114</string>
+
+
+
+    <string-array name="Groups">
+        <item>@string/zio_114</item>
+        ,
+        "",
+        "ИБ-113",
+        "ИБ-209"
+        "ИБ-309",
+        "ИСП-105",
+        "ИСП-106",
+        "ИСП-107",
+        "ИСП-108",
+        "ИСП-109",
+        "ИСП-110",
+        "ИСП-111",
+        "ИСП-206",
+        "ИСП-207",
+        "ИСП-208",
+        "ИСП-307",
+        "ИСП-308",
+        "КС-201",
+        "КС-202",
+        "КС-301",
+        "КС-302",
+        "КС-303",
+        "ПКС-203",
+        "ПКС-204",
+        "ПКС-304",
+        "ПКС-305",
+        "Р-115",
+        "Р-211",
+        "Р-311",
+        "СИС-101",
+        "СИС-102",
+        "СИС-103",
+        "СИС-104",
+        "СИС-205",
+        "СИС-306",
+        "У-210205-9з-20/1",
+        "У-210205-11з-20/2 У-210205-9з-19/1",
+        "ПКС-404",
+        "ПКС-405"
+
+    </string-array> -->
+</resources>

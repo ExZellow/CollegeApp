@@ -3,8 +3,10 @@ package com.example.collegeapp.ui.schedule
 import android.R.string
 import android.graphics.ColorSpace
 import android.os.Environment
+import android.util.Log
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import java.io.File
+import kotlin.math.roundToInt
 
 
 class ScheduleParser {
@@ -24,11 +26,15 @@ class ScheduleParser {
 
         val printer = PrintImageLocations()
         var pageNum = 0
+        val tag = "ANOTHER_TAG"
         for (page in doc.pages) {
             pageNum++
             println("Processing page: $pageNum")
             printer.processPage(page)
+
+            Log.d(tag, printer.objectSet.sorted().groupBy { x->x.roundToInt()/2 }.values.map{x->x.first()}.toString())
         }
+
 
 
         /*val stripper: PDFTextStripper = PrintTextLocations()//PDFTableStripper()

@@ -140,8 +140,10 @@ class ScheduleFragment : Fragment() {
                                     CoroutineScope(Dispatchers.IO).launch {
                                         dao.deleteData()
                                         val scheduleRoom = gson.fromJson(res.getSchedule().toString(), Retrofit.ScheduleResponse::class.java)
-                                        dao.insertData(scheduleRoom)
-                                        /*dao.insertData(res.map {
+                                        //dao.insertData(scheduleRoom) TODO: get json from a server
+
+
+                                    /*dao.insertData(res.map {
                                             ScheduleDB.ScheduleRoom(
                                                 it.group,
                                                 listOf(it.lessons!!)

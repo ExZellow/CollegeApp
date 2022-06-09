@@ -3,10 +3,10 @@ package com.example.collegeapp.ui.schedule
 import android.R.string
 import android.graphics.ColorSpace
 import android.os.Environment
-import com.tom_roush.pdfbox.pdmodel.PDDocument
+//import com.tom_roush.pdfbox.pdmodel.PDDocument
 import java.io.File
 
-
+/*
 class ScheduleParser {
 
     val downloadPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
@@ -50,3 +50,4 @@ class ScheduleParser {
     }
 
 }
+*/

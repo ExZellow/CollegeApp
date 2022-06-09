@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CollegeApp"
 include ':app'
-include ':lib'

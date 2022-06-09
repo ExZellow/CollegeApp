@@ -1,6 +1,6 @@
 package com.example.collegeapp.ui.schedule
 
-import com.tom_roush.pdfbox.text.PDFTextStripper
+/*import com.tom_roush.pdfbox.text.PDFTextStripper
 import kotlin.Throws
 import com.tom_roush.pdfbox.text.TextPosition
 import kotlin.jvm.JvmStatic
@@ -24,4 +24,4 @@ class PrintTextLocations: PDFTextStripper() {
         }
     }
 
-}
+}*/

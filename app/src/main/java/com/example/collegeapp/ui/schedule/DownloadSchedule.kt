@@ -52,7 +52,7 @@ class DownloadSchedule {
             }
         }
     }*/
-
+/*
     fun downloadSchedule(): Boolean {
         var isDownloaded: Boolean
         val url = URL(getScheduleURL()?.let { buildDirectUrl(it) })
@@ -73,5 +73,5 @@ class DownloadSchedule {
         val splitted = url.split("/")
         return base + splitted[5]
     }
-
+*/
 }

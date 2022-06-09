@@ -1,38 +1,36 @@
 package com.example.collegeapp.ui.news
 
-import androidx.lifecycle.*
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import kotlinx.coroutines.*
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.example.collegeapp.ui.news.Utilities.setUrl
+import kotlinx.coroutines.Dispatchers
 
-@Entity
-data class NewsRoom(
 
-    @ColumnInfo(name="Заголовок")
-    val title: String,
+object Utilities {
 
-    @ColumnInfo(name="Содержание")
-    val content: String,
-
-    @ColumnInfo(name="Путь к картинке")
-    val imagePath: String
-
-)
-{
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @JvmStatic
+    fun WebView.setUrl(url: String) {
+        this.settings.userAgentString = this.settings.userAgentString + "app/mgkit"
+        this.loadUrl(url)
+    }
 }
 
 class NewsViewModel : ViewModel() {
 
-    private val newsParser = NewsParser()
+    //private val newsParser = NewsParser()
 
     private val _text: LiveData<String> = liveData(Dispatchers.IO) {
-        val data = newsParser.getResult()
-        emit(data)
+        //val data = newsParser.getResult()
+        //emit(data)
     }
 
+    private val webViewUrl = MutableLiveData<String>().apply{ value = "https://www.mgkit.ru/assignments" }
+    val url: LiveData<String> = webViewUrl
     val text: LiveData<String> = _text
 
 }

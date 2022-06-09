@@ -1,57 +1,59 @@
 package com.example.collegeapp.ui.schedule
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.*
+import androidx.recyclerview.widget.RecyclerView
+import com.example.collegeapp.R
 import kotlinx.coroutines.Dispatchers
 
-/*
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.http.*
-*/
 
 
-@Entity
-data class ScheduleRoom(
 
-    @ColumnInfo(name="Номер пары")
-    val lessonNumber: Int,
 
-    @ColumnInfo(name="Дисциплина")
-    val subject: String,
+class ScheduleJsonAdapter(private val scheduleJsonList: List<Retrofit.ScheduleJson>): RecyclerView.Adapter<ScheduleJsonAdapter.ScheduleJsonViewHolder>() {
 
-    @ColumnInfo(name="Преподаватель")
-    val teacher: String,
+    fun getResult() = scheduleJsonList
 
-    @ColumnInfo(name="Время начала")
-    val startTime: String,
+    class ScheduleJsonViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-    @ColumnInfo(name="Время окончания")
-    val endTime: String,
+        fun fillViews(group: String, lessons: LessonsJson) {
+            for (i in 0..lessons.size) { //TODO:
+                itemView.findViewById<TextView>(R.id.text_group).text = group
+                itemView.findViewById<TextView>(R.id.text_subject).text = lessons.getValue(0)
+                itemView.findViewById<TextView>(R.id.text_teacher).text = lessons.getValue(0)
+                itemView.findViewById<TextView>(R.id.text_classroom).text = lessons.getValue(0)
+            }
+        }
+    }
 
-    @ColumnInfo(name="Номер аудитории")
-    val audience: String,
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ScheduleJsonViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.specific_schedule, parent, false)
+        return ScheduleJsonViewHolder(itemView)
+    }
 
-    @ColumnInfo(name="Пересдача")
-    val specialLesson: Boolean
+    override fun onBindViewHolder(
+        holder: ScheduleJsonViewHolder,
+        position: Int
+    ) {
+        val scheduleJsonValue = scheduleJsonList[position]
+        holder.fillViews(scheduleJsonValue.scheduleJson.keys.first(), scheduleJsonValue.scheduleJson.values.first()) //TODO:
+    }
 
-)
-{
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    override fun getItemCount(): Int = scheduleJsonList.size
+
 }
 
 
 class ScheduleViewModel : ViewModel() {
 
     val downloader = DownloadSchedule()
-    val parsedURL = ScheduleParser()
+    //val parsedURL = ScheduleParser()
 
     private val _downloading: MutableLiveData<Boolean> = MutableLiveData()
     val downloading: LiveData<Boolean> = _downloading
@@ -60,9 +62,41 @@ class ScheduleViewModel : ViewModel() {
         _downloading.value = downloading
     }
 
+    var a = MutableLiveData<List<Retrofit.ScheduleJson>>()
+
+
+    /*fun getResult() {
+        viewModelScope.launch {
+            val textExtract = TextExtract()
+            val result = textExtract.getJson()
+            a.value = listOf(ScheduleJson(result?.lessons?.lessonNumber,
+                                          result?.group,
+                                          listOf(listOf(result?.lessons?.subject!!,
+                                                        result.lessons.teacher,
+                                                        result.lessons.classroom
+                                                       )
+                                                )
+                                          )
+
+
+            )
+                /*Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl("") //TODO: Insert server url
+                    .build()
+                    .create(ParserResponse::class.java).getScheduleJson()
+            )*/
+        }
+    }*/
+
+
+
+
     private val _text: LiveData<String> = liveData(Dispatchers.IO) {
-        val data = parsedURL.loadSchedule()//downloader.getScheduleURL() ?: "Hi"
+        //val data = parsedURL.loadSchedule()//downloader.getScheduleURL() ?: "Hi"
         //emit(data)
+        //val result = TextExtract().getJson()?.group!!
+        //emit(result)
     }
 
     val text: LiveData<String> = _text

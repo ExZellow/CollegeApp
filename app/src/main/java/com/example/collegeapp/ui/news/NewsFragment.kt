@@ -1,14 +1,13 @@
 package com.example.collegeapp.ui.news
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.collegeapp.databinding.FragmentNewsBinding
+import com.example.collegeapp.ui.news.Utilities.setUrl
 
 class NewsFragment : Fragment() {
 
@@ -26,11 +25,10 @@ class NewsFragment : Fragment() {
 
         val root: View = binding.root
 
-        val textView: TextView = binding.textNews
+        val webView = binding.newsWebView
 
-
-        newsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        newsViewModel.url.observe(viewLifecycleOwner) {
+            webView.setUrl(it)
         }
 
         return root

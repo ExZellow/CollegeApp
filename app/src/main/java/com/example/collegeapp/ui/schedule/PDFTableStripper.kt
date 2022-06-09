@@ -2,7 +2,7 @@ package com.example.collegeapp.ui.schedule
 
 import android.graphics.drawable.shapes.Shape
 import androidx.constraintlayout.core.widgets.Rectangle
-import com.tom_roush.fontbox.util.BoundingBox
+/*import com.tom_roush.fontbox.util.BoundingBox
 import com.tom_roush.harmony.awt.geom.AffineTransform
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDPage
@@ -11,13 +11,13 @@ import com.tom_roush.pdfbox.pdmodel.font.PDFont
 import com.tom_roush.pdfbox.pdmodel.font.PDType3Font
 import com.tom_roush.pdfbox.text.PDFTextStripper
 import com.tom_roush.pdfbox.text.PDFTextStripperByArea
-import com.tom_roush.pdfbox.text.TextPosition
+import com.tom_roush.pdfbox.text.TextPosition*/
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.OutputStreamWriter
 import java.util.*
-
+/*
 class PDFTableStripper : PDFTextStripper() {
     /*
      *  Used in methods derived from DrawPrintTextLocations
@@ -316,4 +316,4 @@ class PDFTableStripper : PDFTextStripper() {
         regionStripper = PDFTextStripperByArea()
         regionStripper.setSortByPosition(true)
     }*/
-}
+}*/

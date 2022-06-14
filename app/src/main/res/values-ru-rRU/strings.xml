@@ -11,4 +11,6 @@
     <string name="menu_schedule">Расписание</string>
     <string name="menu_news">Новости</string>
     <string name="some_fab">Плавающая кнопка</string>
+    <string name="group">%s</string>
+    <string name="lesson">%d: %s</string>
 </resources>

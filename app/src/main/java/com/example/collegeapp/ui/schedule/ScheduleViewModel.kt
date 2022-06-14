@@ -13,18 +13,18 @@ import kotlinx.coroutines.Dispatchers
 
 
 
-class ScheduleJsonAdapter(private val scheduleJsonList: List<Retrofit.ScheduleJson>): RecyclerView.Adapter<ScheduleJsonAdapter.ScheduleJsonViewHolder>() {
+class ScheduleJsonAdapter(private val scheduleJsonList: List<Schedule>): RecyclerView.Adapter<ScheduleJsonAdapter.ScheduleJsonViewHolder>() {
 
     fun getResult() = scheduleJsonList
 
     class ScheduleJsonViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun fillViews(group: String, lessons: LessonsJson) {
+        fun fillViews(group: String, lessons: List<Lesson>) {
             for (i in 0..lessons.size) { //TODO:
                 itemView.findViewById<TextView>(R.id.text_group).text = group
-                itemView.findViewById<TextView>(R.id.text_subject).text = lessons.getValue(0)
-                itemView.findViewById<TextView>(R.id.text_teacher).text = lessons.getValue(0)
-                itemView.findViewById<TextView>(R.id.text_classroom).text = lessons.getValue(0)
+                itemView.findViewById<TextView>(R.id.text_subject).text = lessons[0].toString()
+                itemView.findViewById<TextView>(R.id.text_teacher).text = lessons[0].toString()
+                itemView.findViewById<TextView>(R.id.text_classroom).text = lessons[0].toString()
             }
         }
     }
@@ -42,7 +42,7 @@ class ScheduleJsonAdapter(private val scheduleJsonList: List<Retrofit.ScheduleJs
         position: Int
     ) {
         val scheduleJsonValue = scheduleJsonList[position]
-        holder.fillViews(scheduleJsonValue.scheduleJson.keys.first(), scheduleJsonValue.scheduleJson.values.first()) //TODO:
+        holder.fillViews(scheduleJsonValue.group, scheduleJsonValue.lessons) //TODO:
     }
 
     override fun getItemCount(): Int = scheduleJsonList.size
@@ -62,7 +62,7 @@ class ScheduleViewModel : ViewModel() {
         _downloading.value = downloading
     }
 
-    var a = MutableLiveData<List<Retrofit.ScheduleJson>>()
+    var a = MutableLiveData<List<String>>()
 
 
     /*fun getResult() {

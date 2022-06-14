@@ -11,4 +11,6 @@
     <string name="menu_schedule">Schedule</string>
     <string name="menu_news">News</string>
     <string name="some_fab">Some Fab</string>
+    <string name="group">%s</string>
+    <string name="lesson">%d: %s</string>
 </resources>

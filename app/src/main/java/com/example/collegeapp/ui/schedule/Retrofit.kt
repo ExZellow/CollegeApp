@@ -3,32 +3,96 @@ package com.example.collegeapp.ui.schedule
 import retrofit2.Call
 import retrofit2.http.GET
 
-typealias LessonsJson = Map<Int, String>
+data class Schedule(
+    val group: String,
+    val lessons: List<Lesson>
+)
+
+data class Lesson(
+    val lessonNumber: Int,
+    //val lessonDescription: String?
+    val subject: String?,
+    val teacher: List<String?>,
+    val classroom: List<String?>
+)
+
+class ScheduleMapper {
+
+    val teacherPattern = Regex("""[A-ZА-ЯЁ][a-zа-яё]+\s+[A-ZА-ЯЁ][.]\s*[A-ZА-ЯЁ][.]""")
+    val classroomPattern = Regex("""((?<!.)\d{1,3}[а-я]?)|(дист)""")
+
+    fun mapFromGsonResultToSchedule(gsonResult: Map<String, Map<String, String?>>) =
+        gsonResult.map { it ->
+            Schedule(
+                it.key,
+                it.value.map {
+                    Lesson(
+                        it.key.trim().toInt() + 1,
+                        parseSubject(it.value),
+                        parseTeacher(it.value),
+                        parseClassroom(it.value)
+                    )
+                }
+            )
+        }
+
+    private fun parseTeacher(lesson: String?): List<String?> {
+        val teachersList: MutableList<String> = mutableListOf()
+        var localLesson = lesson
+        if (localLesson != null) {
+            while(localLesson!!.contains(teacherPattern)) {
+                teachersList.add(teacherPattern.find(localLesson)?.value.toString().trim())
+                localLesson = localLesson.replaceFirst(teacherPattern, " ")
+            }
+        }
+        return teachersList
+    }
+
+    private fun parseSubject(lesson: String?): String {
+        var subject = ""
+        var localLesson = lesson
+        if (localLesson != null) {
+            while (localLesson!!.contains(teacherPattern) || localLesson.contains(classroomPattern)) {
+                localLesson = localLesson.replace(teacherPattern, " ")
+                localLesson = localLesson.replace(classroomPattern, " ")
+            }
+            subject = localLesson.trim()
+        }
+        return subject
+    }
+
+    private fun parseClassroom(lesson: String?): List<String?> {
+        val classroomList: MutableList<String> = mutableListOf()
+        var localLesson = lesson
+        if (localLesson != null) {
+            while (localLesson!!.contains(classroomPattern)) {
+                classroomList.add(classroomPattern.find(localLesson)?.value.toString().trim())
+                localLesson = localLesson.replaceFirst(classroomPattern, " ")
+            }
+        }
+        return classroomList
+    }
+
+/*    fun parseLesson(lesson: String?): List<String> {
+        var res: MutableList<String> = mutableListOf()
+        while(lesson!!.contains(composePattern)) {
+            //teachersList.add(composePattern.findAll(lesson).map { it.value }.toList())
+            res = composePattern.findAll(lesson).map { it.value.trim()}.toMutableList()
+        }
+        return res
+    }*/
+}
+
+
+/*
+
+typealias LessonsJson = Map<String, String>
 
 class Retrofit {
 
     data class ScheduleJson (
         var scheduleJson: Map<String,  LessonsJson> = emptyMap()
     )
-
-    class Lesson {
-
-        var lessonNumber: Int? = 1
-
-        var subject: String = ""
-
-        var teacher: String = ""
-
-        var classroom: String = ""
-    }
-
-    class Schedule {
-
-        var group: String = ""
-
-        var lessons: List<Lesson> = mutableListOf()
-
-    }
 
     class ScheduleResponse {
 
@@ -55,24 +119,21 @@ class Retrofit {
             val res: ArrayList<ScheduleJson> = ArrayList(scheduleList!!.scheduleJson.size)
             for (key in scheduleList!!.scheduleJson.keys) {
                 for (lkey in lessons!!.keys) {
-                    val schedule = Schedule()
-                    val lesson = Lesson()
+
                     val scheduleJS = ScheduleJson()
-                    schedule.group = scheduleList!!.scheduleJson[key].toString()
-                    lesson.lessonNumber = lkey
+                    */
+/*schedule.group = scheduleList!!.scheduleJson[key].toString()
+                    lesson.lessonNumber = lkey*//*
+
                     res.add(scheduleJS)
                 }
             }
             return res
         }
     }
+*/
+interface ParserResponse {
 
-    interface ParserResponse {
-
-        @GET(".")
-        fun getScheduleJson(): Call<ScheduleResponse>
-    }
-
-
-
+    @GET("/")
+    fun getScheduleJson(): Call<String>
 }

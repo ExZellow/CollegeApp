@@ -19,7 +19,8 @@ data class Lesson(
 class ScheduleMapper {
 
     val teacherPattern = Regex("""[A-ZА-ЯЁ][a-zа-яё]+\s+[A-ZА-ЯЁ][.]\s*[A-ZА-ЯЁ][.]""")
-    val classroomPattern = Regex("""((?<!.)\d{1,3}[а-я]?)|(дист)""")
+    val classroomPattern = Regex("""((?<![\.0])\d{1,3}([а-я])?)|(дист)""")
+    //val classroomPattern = Regex("""((?<!.)\d{1,3}[а-я]?)|(дист)""")
 
     fun mapFromGsonResultToSchedule(gsonResult: Map<String, Map<String, String?>>) =
         gsonResult.map { it ->
